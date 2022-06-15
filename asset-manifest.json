@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/manual-shopping-cart/static/css/main.0a64d739.css",
-    "main.js": "/manual-shopping-cart/static/js/main.8a295461.js",
-    "static/js/787.28cb0dcd.chunk.js": "/manual-shopping-cart/static/js/787.28cb0dcd.chunk.js",
-    "index.html": "/manual-shopping-cart/index.html",
-    "main.0a64d739.css.map": "/manual-shopping-cart/static/css/main.0a64d739.css.map",
-    "main.8a295461.js.map": "/manual-shopping-cart/static/js/main.8a295461.js.map",
-    "787.28cb0dcd.chunk.js.map": "/manual-shopping-cart/static/js/787.28cb0dcd.chunk.js.map"
+    "main.css": "./static/css/main.0a64d739.css",
+    "main.js": "./static/js/main.c3815674.js",
+    "static/js/787.28cb0dcd.chunk.js": "./static/js/787.28cb0dcd.chunk.js",
+    "index.html": "./index.html",
+    "main.0a64d739.css.map": "./static/css/main.0a64d739.css.map",
+    "main.c3815674.js.map": "./static/js/main.c3815674.js.map",
+    "787.28cb0dcd.chunk.js.map": "./static/js/787.28cb0dcd.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.0a64d739.css",
-    "static/js/main.8a295461.js"
+    "static/js/main.c3815674.js"
   ]
 }
