@@ -2,10 +2,10 @@ import {
   createEntityAdapter,
   createSlice,
   EntityId,
+  nanoid,
   PayloadAction,
 } from '@reduxjs/toolkit';
 import BigNumber from 'bignumber.js';
-import { v4 as uuidv4 } from 'uuid';
 
 export type Cart = {
   id: EntityId;
@@ -110,12 +110,12 @@ export const {
 export default shopSlice.reducer;
 
 function newCart(): Cart {
-  return { id: uuidv4(), title: '', itemIds: [] };
+  return { id: nanoid(), title: '', itemIds: [] };
 }
 
 function newItem(cartId: EntityId): Item {
   return {
-    id: uuidv4(),
+    id: nanoid(),
     name: '',
     price: '',
     quantity: '1',

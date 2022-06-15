@@ -48,7 +48,6 @@ npm install ( -split @'
     @emotion/react
     @emotion/styled
     @mui/icons-material
-    uuid
     @types/uuid
     bignumber.js
 '@)
