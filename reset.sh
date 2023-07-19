@@ -29,4 +29,14 @@ npm install --save-dev \
 
 sed -i -e '4i \ \ "homepage": ".",' package.json
 
+# npx eslint --init時のエラー対処(parserとeslint-pluginの互換)
+npm install --save-dev \
+    @typescript-eslint/parser@6.0.0
+
+# perserと同時にインストールするとエラーが出る
+npm install --save-dev \
+    @typescript-eslint/eslint-plugin \
+    eslint-plugin-react
+
+# 上記でparser等をインストール済みなのでここでインストールしない
 npx eslint --init
