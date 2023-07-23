@@ -7,21 +7,21 @@ import { ItemCardList } from './ItemCardList';
 import React from 'react';
 
 export function ItemList() {
-  const state = useAppSelector((state) => state);
+  const shop = useAppSelector((state) => state.shop);
   const { cartId } = useParams<{ cartId: string }>();
 
   if (!cartId) {
     return <Navigate to="/" />;
   }
 
-  const cart = state.shop.carts.entities[cartId];
+  const cart = shop.carts.entities[cartId];
 
   if (!cart) {
     return <Navigate to="/" />;
   }
 
   const items = cart.itemIds
-    .map((id) => state.shop.items.entities[id])
+    .map((id) => shop.items.entities[id])
     .filter((item): item is Item => !!item);
 
   return (
