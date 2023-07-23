@@ -2,7 +2,7 @@
   "recommendations": [
     "dbaeumer.vscode-eslint",
     "esbenp.prettier-vscode",
-    "davidanson.vscode-markdownlint",
-    "ms-vscode.powershell"
+    "ms-azuretools.vscode-docker",
+    "davidanson.vscode-markdownlint"
   ]
 }
