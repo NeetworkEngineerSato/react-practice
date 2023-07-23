@@ -75,7 +75,6 @@ function TextFields(props: { item: Item }) {
     onChange: updateItemValue,
     onKeyUp: focusNextField,
     onFocus: selectInputValue,
-    variant: 'outlined',
   };
 
   return (

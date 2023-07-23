@@ -1,3 +1,5 @@
+import { UniqueIdentifier } from '@dnd-kit/core';
+import { arrayMove } from '@dnd-kit/sortable';
 import {
   createEntityAdapter,
   createSlice,
@@ -47,7 +49,7 @@ export const shopSlice = createSlice({
     },
     cartUpdated: (
       state,
-      action: PayloadAction<{ id: EntityId; changes: Partial<Cart> }>
+      action: PayloadAction<{ id: EntityId; changes: Partial<Cart> }>,
     ) => {
       cartAdapter.updateOne(state.carts, action);
     },
@@ -60,6 +62,23 @@ export const shopSlice = createSlice({
 
       itemAdapter.removeMany(state.items, cart.itemIds);
       cartAdapter.removeOne(state.carts, cart.id);
+    },
+    cartDragEnded: (
+      state,
+      action: PayloadAction<{
+        activeID: UniqueIdentifier;
+        overID: UniqueIdentifier;
+      }>,
+    ) => {
+      const carts = state.carts;
+      const ids = carts.ids;
+      const { activeID, overID } = action.payload;
+
+      if (activeID !== overID) {
+        const oldIndex = ids.indexOf(activeID);
+        const newIndex = ids.indexOf(overID);
+        carts.ids = arrayMove(ids, oldIndex, newIndex);
+      }
     },
     itemAdded: (state, action: PayloadAction<{ cartId: EntityId }>) => {
       const cart = state.carts.entities[action.payload.cartId];
@@ -74,7 +93,7 @@ export const shopSlice = createSlice({
     },
     itemUpdated: (
       state,
-      action: PayloadAction<{ id: EntityId; changes: Partial<Item> }>
+      action: PayloadAction<{ id: EntityId; changes: Partial<Item> }>,
     ) => {
       itemAdapter.updateOne(state.items, action);
     },
@@ -95,6 +114,29 @@ export const shopSlice = createSlice({
 
       cart.itemIds = cart.itemIds.filter((itemId) => itemId !== item.id);
     },
+    itemDragEnded: (
+      state,
+      action: PayloadAction<{
+        cartId: EntityId;
+        activeID: UniqueIdentifier;
+        overID: UniqueIdentifier;
+      }>,
+    ) => {
+      const cart = state.carts.entities[action.payload.cartId];
+
+      if (!cart) {
+        return;
+      }
+
+      const ids = cart.itemIds;
+      const { activeID, overID } = action.payload;
+
+      if (activeID !== overID) {
+        const oldIndex = ids.indexOf(activeID);
+        const newIndex = ids.indexOf(overID);
+        cart.itemIds = arrayMove(ids, oldIndex, newIndex);
+      }
+    },
   },
 });
 
@@ -102,9 +144,11 @@ export const {
   cartAdded,
   cartUpdated,
   cartDeleted,
+  cartDragEnded,
   itemAdded,
   itemUpdated,
   itemDeleted,
+  itemDragEnded,
 } = shopSlice.actions;
 
 export default shopSlice.reducer;
@@ -132,7 +176,7 @@ export function getTotalPrice(...items: Item[]): string {
   const validValueItems = items.filter(
     (item) =>
       !new BigNumber(item.price).isNaN() &&
-      !new BigNumber(item.quantity).isNaN()
+      !new BigNumber(item.quantity).isNaN(),
   );
 
   if (validValueItems.length === 0) {
