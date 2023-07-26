@@ -42,22 +42,26 @@ function TextFields(props: { item: Item }) {
   const item = props.item;
 
   const updateItemValue = (e: ChangeEvent<HTMLInputElement>) => {
+    e.stopPropagation();
+    e.preventDefault();
     dispatch(
       itemUpdated({
         id: item.id,
         changes: { [e.target.name]: e.target.value },
-      })
+      }),
     );
   };
 
   const focusNextField = (e: KeyboardEvent<HTMLDivElement>) => {
+    e.stopPropagation();
+    e.preventDefault();
     if (e.key.toLowerCase() !== 'enter') {
       return;
     }
 
     const inputElementList = document.querySelectorAll('input');
     const textFieldArray = Array.from(inputElementList).filter(
-      (element) => element.type === 'text' || element.type === 'number'
+      (element) => element.type === 'text' || element.type === 'number',
     );
     for (let i = 0; i < textFieldArray.length - 1; i++) {
       if (textFieldArray[i] === e.target) {
@@ -68,7 +72,7 @@ function TextFields(props: { item: Item }) {
   };
 
   const selectInputValue = (
-    e: FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>
+    e: FocusEvent<HTMLInputElement | HTMLTextAreaElement, Element>,
   ) => e.target.select();
 
   const commonProps: TextFieldProps = {
@@ -153,7 +157,7 @@ function ActiveButton(props: { item: Item }) {
           itemUpdated({
             id: item.id,
             changes: { isActive: !item.isActive },
-          })
+          }),
         )
       }
       checked={item.isActive}

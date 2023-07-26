@@ -1,7 +1,7 @@
 import { Navigate, useParams } from 'react-router-dom';
 import { useAppSelector } from '../../../app/hooks';
 import { Footer } from '../Footer';
-import { getActiveTotalPrice, Item, itemAdded } from '../shopSlice';
+import { getActiveTotalPrice, itemAdded } from '../shopSlice';
 import { Header } from './Header';
 import { ItemCardList } from './ItemCardList';
 import React from 'react';
@@ -22,7 +22,7 @@ export function ItemList() {
 
   const items = cart.itemIds
     .map((id) => shop.items.entities[id])
-    .filter((item): item is Item => !!item);
+    .flatMap((item) => item ?? []);
 
   return (
     <>

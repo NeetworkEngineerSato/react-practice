@@ -42,15 +42,21 @@ function TitleField(props: { cartId: EntityId; cartTitle: string }) {
           cartUpdated({
             id: props.cartId,
             changes: { title: e.target.value },
-          })
+          }),
         )
       }
       onKeyUp={(e) => {
+        e.stopPropagation();
+        e.preventDefault();
         if (e.key.toLowerCase() === 'enter') {
           navigate(`/${props.cartId}`);
         }
       }}
-      onFocus={(e) => e.target.select()}
+      onFocus={(e) => {
+        e.stopPropagation();
+        e.preventDefault();
+        e.target.select();
+      }}
       fullWidth
     />
   );
